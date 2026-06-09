@@ -65,7 +65,8 @@ if (eventGrid && eventMore) {
     eventMore.addEventListener('click', () => {
         if (visible >= cards.length) {
             visible = STEP;
-            eventGrid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            const section = eventGrid.closest('section') || eventGrid;
+            section.scrollIntoView({ behavior: 'smooth', block: 'start' });
         } else {
             visible += STEP;
         }
