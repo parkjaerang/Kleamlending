@@ -175,3 +175,44 @@ document.querySelectorAll('.faq_item').forEach((item) => {
         answer.style.maxHeight = isOpen ? answer.scrollHeight + 'px' : '';
     });
 });
+
+/* ===== 료금표 카테고리 토글 ===== */
+document.querySelectorAll('.price_prog').forEach((prog) => {
+    const title = prog.querySelector('.prog_title');
+    if (!title) return;
+
+    // 제목 텍스트를 span으로 감싸고 화살표 아이콘 추가
+    const label = title.textContent.trim();
+    title.innerHTML = '';
+    const ttext = document.createElement('span');
+    ttext.className = 'prog_ttext';
+    ttext.textContent = label;
+    const chevron = document.createElement('span');
+    chevron.className = 'prog_chevron';
+    chevron.setAttribute('aria-hidden', 'true');
+    title.append(ttext, chevron);
+
+    title.setAttribute('role', 'button');
+    title.setAttribute('tabindex', '0');
+    title.setAttribute('aria-expanded', 'false');
+
+    // 제목 이후의 내용을 접을 수 있는 본문으로 래핑
+    const body = document.createElement('div');
+    body.className = 'prog_body';
+    while (title.nextSibling) body.appendChild(title.nextSibling);
+    prog.appendChild(body);
+
+    function toggle() {
+        const isOpen = prog.classList.toggle('open');
+        title.setAttribute('aria-expanded', String(isOpen));
+        body.style.maxHeight = isOpen ? body.scrollHeight + 'px' : '';
+    }
+
+    title.addEventListener('click', toggle);
+    title.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            toggle();
+        }
+    });
+});

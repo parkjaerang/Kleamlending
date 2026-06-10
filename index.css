@@ -291,151 +291,230 @@ header{
     font-size: 20px;
 }
 
-.event_grid{
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 14px;
+/* ===== PRICE LIST / 이벤트 가격표 ===== */
+.price_period{
+    padding: 0 var(--padding);
+    margin-bottom: 16px;
+    color: var(--hover);
+    font-family: 'SST', 'Noto Sans JP', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: .5px;
+}
+
+.price_hint{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 var(--padding);
+    margin-bottom: 16px;
+    font-family: 'SST', 'Noto Sans JP', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--font2);
+}
+
+.price_hint_badge{
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    background-color: var(--line);
+    color: var(--white);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .5px;
+    padding: 4px 11px;
+    border-radius: 999px;
+    box-shadow: 0 4px 12px rgba(45, 122, 79, 0.35);
+    animation: hintBounce 1.5s ease-in-out infinite;
+}
+
+@keyframes hintBounce{
+    0%, 100%{ transform: translateY(0); }
+    50%{ transform: translateY(2px); }
+}
+
+.price_list{
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
     padding: 0 var(--padding);
 }
 
-.event_card.is-hidden{
-    display: none;
-}
-
-.event_more{
-    display: block;
-    width: calc(100% - var(--padding) * 2);
-    margin: 20px var(--padding) 0;
-    padding: 12px 0;
-    cursor: pointer;
-    background-color: transparent;
-    border: 1px solid var(--font2);
-    border-radius: 10px;
-    color: var(--font2);
-    font-family: 'SST', 'Noto Sans JP', sans-serif;
-    font-weight: 700;
-    font-size: 14px;
-    transition: background-color .1s ease-in;
-}
-
-.event_more:hover{
-    background-color: var(--hover);
-}
-
-.event_card{
-    display: flex;
-    flex-direction: column;
+.price_prog{
     background-color: var(--white);
     border: 1px solid #eee;
     border-radius: 14px;
     overflow: hidden;
-    color: var(--font1);
     font-family: 'SST', 'Noto Sans JP', sans-serif;
-    transition: transform .15s ease, box-shadow .15s ease;
+    color: var(--font1);
 }
 
-.event_card:hover{
-    transform: translateY(-3px);
-    box-shadow: 0 8px 24px rgba(94, 82, 74, 0.15);
+.prog_title{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 15px var(--padding);
+    background-color: var(--white);
+    color: var(--font2);
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.4;
+    cursor: pointer;
+    user-select: none;
+    transition: background-color .15s ease;
 }
 
-.event_thumb{
-    position: relative;
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    overflow: hidden;
+.prog_title:hover{
+    background-color: #335c55;
 }
 
-.event_thumb img{
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    object-fit: cover;
+.prog_ttext{
+    flex: 1;
+    min-width: 0;
+}
+
+.prog_chevron{
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background-color: var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: center;
     transition: transform .3s ease;
 }
 
-.event_card:hover .event_thumb img{
-    transform: scale(1.06);
+.prog_chevron::before{
+    content: "";
+    width: 8px;
+    height: 8px;
+    margin-top: -3px;
+    border-right: 2px solid var(--white);
+    border-bottom: 2px solid var(--white);
+    transform: rotate(45deg);
 }
 
-.event_info{
+.price_prog.open .prog_chevron{
+    transform: rotate(180deg);
+}
+
+.prog_body{
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .35s ease;
+}
+
+.prog_sub{
+    padding: 14px var(--padding) 6px;
+    color: var(--font1);
+    opacity: .65;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .5px;
+}
+
+.prog_items{
+    padding: 4px var(--padding) 10px;
+}
+
+.prog_item{
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 11px 0;
+    border-bottom: 1px solid #f0eeea;
+}
+
+.prog_items .prog_item:last-child{
+    border-bottom: none;
+}
+
+.item_name{
     flex: 1;
     min-width: 0;
-    display: flex;
-    flex-direction: column;
-    padding: 12px 14px 14px;
-}
-
-.event_meta{
-    font-size: 8px;
-    color: var(--hover);
-    margin-bottom: 4px;
-}
-
-.event_name{
     font-size: 13px;
-    font-weight: 700;
-    line-height: 1.4;
-    margin-bottom: 10px;
-    /* 2줄로 말줄임 */
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+    font-weight: 400;
+    line-height: 1.6;
+    color: var(--ink1);
 }
 
-.event_tax{
-    font-size: 11px;
-    color: var(--hover);
-    margin-bottom: 2px;
-    margin-top: auto;
-}
-
-.event_tax .origin{
-    text-decoration: line-through;
-}
-
-.event_price{
-    display: flex;
-    align-items: baseline;
-    gap: 6px;
-    font-size: 18px;
+.item_price{
+    flex-shrink: 0;
+    white-space: nowrap;
+    font-size: 19px;
     font-weight: 900;
+    color: var(--line);
 }
 
-.event_price .now{
-    color: var(--font2);
+.item_price small{
+    margin-left: 3px;
+    font-size: 11px;
+    font-weight: 400;
+    color: var(--hover);
 }
 
-.event_price .off{
-    color: var(--white);
-    background-color: #e8553b;
-    font-size: 12px;
+/* 줄기세포 등 패키지형 프로그램 */
+.prog_pkg{
+    padding: 16px var(--padding);
+    border-top: 1px solid #f0eeea;
+}
+
+.prog_body > .prog_pkg:first-child{
+    border-top: none;
+}
+
+.pkg_name{
+    font-size: 14px;
     font-weight: 700;
-    padding: 2px 7px;
-    border-radius: 999px;
-    align-self: center;
-}
-
-.event_rating{
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    margin-top: 8px;
-    font-size: 12px;
-    font-weight: 700;
+    line-height: 1.5;
     color: var(--font1);
 }
 
-.event_rating .fa-star{
-    color: #ffc107;
+.pkg_desc{
+    margin-top: 4px;
     font-size: 12px;
+    font-weight: 400;
+    line-height: 1.6;
+    color: var(--hover);
 }
 
-.event_rating .event_count{
-    color: var(--hover);
-    font-weight: 400;
+.pkg_steps{
+    list-style: none;
+    counter-reset: step;
+    margin: 12px 0 4px;
+}
+
+.pkg_steps li{
+    counter-increment: step;
+    position: relative;
+    padding: 4px 0 4px 26px;
+    font-size: 12px;
+    line-height: 1.6;
+    color: var(--font1);
+}
+
+.pkg_steps li::before{
+    content: counter(step);
+    position: absolute;
+    left: 0;
+    top: 4px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background-color: var(--font2);
+    color: var(--white);
+    font-size: 10px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.prog_pkg .prog_items{
+    padding: 8px 0 0;
 }
 
 .ba_grid{
@@ -643,67 +722,34 @@ header{
     font-family: 'SST', 'Noto Sans JP', sans-serif;
 }
 
-/* ===== CTA / 5% 할인 쿠폰 ===== */
-#cta_coupon{
-    margin-top: 50px;
-    padding: 0 var(--padding);
-}
-
-.cta_card{
-    background-color: var(--ink1);
-    border: 1px solid var(--font2);
-    border-radius: 16px;
-    padding: 28px var(--padding);
+/* ===== CTA / 무료상담 유도 ===== */
+#cta{
+    margin: 50px 0;
+    padding: 48px var(--padding);
+    background-color: var(--white);
     text-align: center;
-    font-family: 'SST', 'Noto Sans JP', sans-serif;
-    color: var(--white);
 }
 
-.cta_badge{
-    display: inline-block;
-    background-color: var(--line);
-    color: var(--white);
-    font-size: 12px;
+.cta_i{
+    max-width: 520px;
+    margin: 0 auto;
+}
+
+.cta_lead{
+    font-size: 20px;
     font-weight: 700;
-    padding: 5px 14px;
-    border-radius: 999px;
-    margin-bottom: 16px;
-}
-
-.cta_off{
-    font-weight: 900;
-    font-size: 24px;
-    color: var(--font2);
+    line-height: 1.5;
+    color: var(--font1);
     margin-bottom: 12px;
 }
 
-.cta_off_num{
-    color: var(--font2);
-    font-size: 40px;
-    line-height: 1;
-}
-
-.cta_desc{
+.cta_sub{
     font-size: 14px;
     font-weight: 400;
     line-height: 1.7;
+    color: var(--font1);
+    opacity: .8;
     margin-bottom: 24px;
-}
-
-.cta_desc strong{
-    color: var(--font2);
-    font-weight: 700;
-}
-
-.cta_card .line{
-    display: block;
-    max-width: 360px;
-    margin: 0 auto 12px;
-}
-
-.cta_note{
-    font-size: 11px;
-    color: var(--hover);
 }
 
 /* ===== INFORMATION / 오시는 길 ===== */
